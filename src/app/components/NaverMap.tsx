@@ -1,13 +1,13 @@
 "use client";
 import React, { useEffect, useRef } from "react";
 
-const NaverMap = () => {
+const NaverMap = ({ width, height }: { width: number; height: number }) => {
   const mapElement = useRef<HTMLDivElement>(null);
-  useEffect(() => {
+  const init = () => {
     if (typeof window !== "undefined" && window.naver && mapElement.current) {
       const mapOptions = {
         center: new window.naver.maps.LatLng(37.5665, 126.978), // 서울 중심 좌표
-        zoom: 10, // 줌 레벨
+        zoom: 15, // 줌 레벨
       };
 
       // 지도 생성 및 렌더링
@@ -19,8 +19,11 @@ const NaverMap = () => {
         map: map,
       });
     }
+  };
+  useEffect(() => {
+    init();
   }, []);
-  return <div ref={mapElement} className="w-full h-screen"></div>;
+  return <div ref={mapElement} style={{ width, height }}></div>;
 };
 
 export default NaverMap;
