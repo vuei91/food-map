@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Restaurant, RestaurantExtend } from "../types/entities";
+import { RestaurantExtend } from "../types/entities";
 import Modal from "./Modal";
 
 const RestaurantList = ({
@@ -95,10 +95,6 @@ const RestaurantList = ({
       </div>
     </>
   );
-};
-
-const RestaurantItem = ({ restaurant }: { restaurant: Restaurant }) => {
-  return <div></div>;
 };
 
 export default RestaurantList;

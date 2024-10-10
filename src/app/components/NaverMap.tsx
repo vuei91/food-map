@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import { Restaurant, RestaurantExtend, YoutubeInfo } from "../types/entities";
+import { RestaurantExtend } from "../types/entities";
 
 const NaverMap = ({ restaurants }: { restaurants: RestaurantExtend[] }) => {
   const mapElement = useRef<HTMLDivElement>(null);
