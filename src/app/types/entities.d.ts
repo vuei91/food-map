@@ -1,15 +1,9 @@
 export interface Thumbnail {
-  url: string;
-  width: number;
-  height: number;
-}
-
-export interface Thumbnails {
-  default: Thumbnail;
-  medium: Thumbnail;
-  high: Thumbnail;
-  standard: Thumbnail;
-  maxres: Thumbnail;
+  default: string;
+  medium: string;
+  high: string;
+  standard: string;
+  maxres: string;
 }
 
 export interface Restaurant {
@@ -19,14 +13,20 @@ export interface Restaurant {
   address: string;
   naver_link: string;
   google_map_link: string | null;
+  latitude: string;
+  longitude: string;
+  created_at: string;
 }
 
-export interface VideoDetails {
+export interface YoutubeInfo {
   video_id: string;
   title: string;
-  thumbnails: Thumbnails;
   description: string;
-  tags: string[];
+  tags: string;
   shorts: boolean;
   restaurants: Restaurant[];
+}
+
+export interface RestaurantExtend extends Restaurant, Thumbnail, YoutubeInfo {
+  id: number;
 }
