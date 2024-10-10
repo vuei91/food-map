@@ -2,11 +2,14 @@
 import React, { useState } from "react";
 import { RestaurantExtend } from "../types/entities";
 import Modal from "./Modal";
+import Pagination from "./Pagination";
 
 const RestaurantList = ({
   restaurants,
+  page,
 }: {
   restaurants: RestaurantExtend[];
+  page: number;
 }) => {
   const [currentVideoId, setCurrentVideoId] = useState<string>("");
   const [currentSeconds, setCurrentSeconds] = useState<number>(0);
@@ -93,6 +96,10 @@ const RestaurantList = ({
           ))}
         </ul>
       </div>
+      <Pagination
+        totalPages={Math.ceil(restaurants[0].total_count / 5)}
+        currentPage={page}
+      />
     </>
   );
 };

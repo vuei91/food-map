@@ -28,5 +28,6 @@ export interface YoutubeInfo {
 }
 
 export interface RestaurantExtend extends Restaurant, Thumbnail, YoutubeInfo {
+  total_count: number;
   id: number;
 }
