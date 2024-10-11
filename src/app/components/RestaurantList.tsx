@@ -23,7 +23,6 @@ const RestaurantList = ({
     return seconds;
   };
   const openModal = (id: string, seconds: number) => {
-    console.log(id, seconds);
     setCurrentVideoId(id);
     setCurrentSeconds(seconds);
     setIsShow(true);
