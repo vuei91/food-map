@@ -15,6 +15,7 @@ export interface Restaurant {
   google_map_link: string | null;
   latitude: string;
   longitude: string;
+  distance: string;
   created_at: string;
 }
 

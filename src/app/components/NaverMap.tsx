@@ -8,8 +8,11 @@ const NaverMap = ({ restaurants }: { restaurants: RestaurantExtend[] }) => {
   const init = () => {
     if (window?.naver && mapElement.current) {
       const mapOptions = {
-        center: new window.naver.maps.LatLng(37.5665, 126.978), // 서울 중심 좌표
-        zoom: 1, // 줌 레벨
+        center: new window.naver.maps.LatLng(
+          restaurants[0].latitude,
+          restaurants[0].longitude
+        ), // 서울 중심 좌표
+        zoom: 15, // 줌 레벨
       };
 
       // 지도 생성 및 렌더링
