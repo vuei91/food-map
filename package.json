@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@elastic/elasticsearch": "^8.15.0",
     "@heroicons/react": "^2.1.5",
     "@supabase/supabase-js": "^2.45.4",
     "axios": "^1.7.7",
