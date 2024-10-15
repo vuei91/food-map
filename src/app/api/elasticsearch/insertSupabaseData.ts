@@ -13,14 +13,7 @@ export const insertSupabaseData = async ({ client }: { client: Client }) => {
   for (const restaurant of restaurants) {
     await insertData({
       client,
-      document: {
-        id: restaurant.id,
-        description: restaurant.description,
-        name: restaurant.name,
-        address: restaurant.address,
-        category: restaurant.category,
-        title: restaurant.title,
-      },
+      document: restaurant,
     });
   }
 };
