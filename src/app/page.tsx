@@ -1,8 +1,5 @@
-import React from "react";
 import NaverMap from "./components/NaverMap";
-import { supabase } from "./supabase/client";
 import RestaurantList from "./components/RestaurantList";
-import { NextRequest } from "next/server";
 import Search from "./components/Search";
 
 const Home = async ({
@@ -15,10 +12,11 @@ const Home = async ({
       searchParams?.keyword ?? ""
     }&page=${searchParams?.page ?? 1}`
   );
+
   const restaurants = await resp.json();
   return (
     <div className="flex">
-      <div className="flex-1">
+      <div className="flex-[2]">
         <Search />
         {restaurants?.length > 0 && (
           <RestaurantList
@@ -27,7 +25,7 @@ const Home = async ({
           />
         )}
       </div>
-      <div className="flex-[2]">
+      <div className="flex-[3]">
         <NaverMap restaurants={restaurants} />
       </div>
     </div>

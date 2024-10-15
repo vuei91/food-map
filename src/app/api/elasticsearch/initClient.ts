@@ -120,7 +120,7 @@ export async function searchData({
   const response = await client.search({
     index: process.env.NEXT_PUBLIC_ELASTICSEARCH_INDEX,
     from: offset,
-    size: 5,
+    size: 4,
     body: {
       query: {
         bool: {
@@ -134,5 +134,9 @@ export async function searchData({
       },
     },
   });
-  return response.hits.hits.map((hit: any) => hit._source);
+  const total = response.hits.total as { value: number };
+  return response.hits.hits.map((hit: any) => ({
+    ...hit._source,
+    total_count: total?.value,
+  }));
 }
