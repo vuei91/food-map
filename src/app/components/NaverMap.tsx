@@ -9,8 +9,8 @@ const NaverMap = ({ restaurants }: { restaurants: RestaurantExtend[] }) => {
     if (window?.naver && mapElement.current) {
       const mapOptions = {
         center: new window.naver.maps.LatLng(
-          restaurants[0].latitude,
-          restaurants[0].longitude
+          restaurants[0]?.latitude || process.env.NEXT_PUBLIC_LATITUDE,
+          restaurants[0]?.longitude || process.env.NEXT_PUBLIC_LONGITUDE
         ), // 서울 중심 좌표
         zoom: 15, // 줌 레벨
       };

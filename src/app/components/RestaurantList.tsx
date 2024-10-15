@@ -104,7 +104,7 @@ const RestaurantList = ({
         </ul>
       </div>
       <Pagination
-        totalPages={Math.ceil(restaurants[0].total_count / 5)}
+        totalPages={Math.ceil((restaurants[0]?.total_count || 0) / 5)}
         currentPage={page}
       />
     </>

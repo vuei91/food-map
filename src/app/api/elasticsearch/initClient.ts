@@ -111,18 +111,21 @@ export async function deleteData({
 export async function searchData({
   client,
   keyword,
+  offset,
 }: {
   client: Client;
   keyword: string;
+  offset: number;
 }) {
   const response = await client.search({
     index: process.env.NEXT_PUBLIC_ELASTICSEARCH_INDEX,
+    from: offset,
+    size: 5,
     body: {
       query: {
         bool: {
           should: [
             { term: { title: keyword } },
-            { term: { description: keyword } },
             { term: { tags: keyword } },
             { term: { address: keyword } },
             { term: { category: keyword } },

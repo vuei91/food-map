@@ -3,34 +3,32 @@ import NaverMap from "./components/NaverMap";
 import { supabase } from "./supabase/client";
 import RestaurantList from "./components/RestaurantList";
 import { NextRequest } from "next/server";
+import Search from "./components/Search";
 
 const Home = async ({
   searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) => {
-  const { data: restaurants, error } = await supabase.rpc("get_restaurants", {
-    latitude_val: process.env.NEXT_PUBLIC_LATITUDE,
-    longitude_val: process.env.NEXT_PUBLIC_LONGITUDE,
-    offset_val: searchParams?.page ? (Number(searchParams?.page) - 1) * 5 : 0,
-    limit_val: 4,
-  });
-
-  if (error) {
-    console.error("Error fetching data:", error);
-    return <p>Failed to load data</p>;
-  }
-
+  const resp = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/elasticsearch?keyword=${
+      searchParams?.keyword ?? ""
+    }&page=${searchParams?.page ?? 1}`
+  );
+  const restaurants = await resp.json();
   return (
     <div className="flex">
       <div className="flex-1">
-        <RestaurantList
-          restaurants={restaurants}
-          page={searchParams?.page ? Number(searchParams?.page) : 1}
-        />
+        <Search />
+        {restaurants?.length > 0 && (
+          <RestaurantList
+            restaurants={restaurants}
+            page={searchParams?.page ? Number(searchParams?.page) : 1}
+          />
+        )}
       </div>
       <div className="flex-[2]">
-        <NaverMap restaurants={restaurants} />;
+        <NaverMap restaurants={restaurants} />
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 "use client";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const Pagination = ({
   totalPages,
@@ -10,13 +10,14 @@ const Pagination = ({
   currentPage: number;
 }) => {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const handlePageChange = (page: number) => {
     // 페이지가 1보다 작거나 총 페이지 수보다 큰 경우에는 처리하지 않음
     if (page < 1 || page > totalPages) return;
-
+    const keyword = searchParams.get("keyword") || "";
     // 쿼리 문자열을 업데이트
-    router.push(`/?page=${page}`);
+    router.push(`/?keyword=${keyword}&page=${page}`);
   };
 
   return (
