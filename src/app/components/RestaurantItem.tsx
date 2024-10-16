@@ -12,6 +12,13 @@ const RestaurantItem = ({
   const handleClick = () => {
     const time = getTimestampToSeconds(restaurant.timestamp);
     onClick(restaurant.video_id, time);
+    moveToMap();
+  };
+
+  const moveToMap = () => {
+    window.naver.newMap.panTo(
+      new window.naver.maps.LatLng(restaurant.latitude, restaurant.longitude)
+    );
   };
 
   return (

@@ -8,7 +8,6 @@ interface LatLng {
 
 export const useNaverMap = (restaurants: RestaurantExtend[]) => {
   const mapElement = useRef<HTMLDivElement>(null);
-  const [map, setMap] = useState<any>(null);
 
   const init = () => {
     if (window?.naver && mapElement.current) {
@@ -21,22 +20,57 @@ export const useNaverMap = (restaurants: RestaurantExtend[]) => {
       };
 
       const newMap = new window.naver.maps.Map(mapElement.current, mapOptions);
-      restaurants.forEach((restaurant) => {
-        makeMarker(
+      window.naver.newMap = newMap;
+      restaurants.forEach((restaurant, index) => {
+        const marker = makeMarker(
           { lat: restaurant.latitude, lng: restaurant.longitude },
           newMap
         );
+        makeInfoWindow({
+          title: restaurant.name,
+          marker,
+          targetMap: newMap,
+          index,
+        });
       });
-      setMap(newMap);
     }
   };
 
   const makeMarker = ({ lat, lng }: LatLng, targetMap?: any) => {
-    if (!targetMap) targetMap = map;
-    new window.naver.maps.Marker({
+    return new window.naver.maps.Marker({
       position: new window.naver.maps.LatLng(lat, lng),
       map: targetMap,
     });
+  };
+
+  const makeInfoWindow = ({
+    title,
+    marker,
+    targetMap,
+    index,
+  }: {
+    title: string;
+    marker: any;
+    targetMap: any;
+    index: number;
+  }) => {
+    const infoWindow = new window.naver.maps.InfoWindow({
+      content: getContent({ title }),
+    });
+    new window.naver.maps.Event.addListener(marker, "click", () => {
+      if (infoWindow.getMap()) {
+        infoWindow.close();
+      } else {
+        infoWindow.open(targetMap, marker);
+      }
+    });
+    if (index === 0) {
+      infoWindow.open(targetMap, marker);
+    }
+  };
+
+  const getContent = ({ title }: { title: string }) => {
+    return `<div style="padding:10px;font-size:12px;">${title}</div>`;
   };
 
   useEffect(() => {
