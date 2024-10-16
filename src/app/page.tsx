@@ -12,7 +12,6 @@ const Home = async ({
       searchParams?.keyword ?? ""
     }&page=${searchParams?.page ?? 1}`
   );
-
   const restaurants = await resp.json();
   return (
     <div className="flex">
