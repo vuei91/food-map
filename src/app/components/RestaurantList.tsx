@@ -29,7 +29,7 @@ const RestaurantList = ({
         <ul className="space-y-5">
           {restaurants.map((restaurant, index) => (
             <RestaurantItem
-              key={index}
+              key={restaurant.id}
               restaurant={restaurant}
               onClick={openModal}
             />
