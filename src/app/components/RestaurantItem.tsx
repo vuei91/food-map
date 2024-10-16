@@ -1,6 +1,7 @@
 import React from "react";
 import { RestaurantExtend } from "../types/entities";
 import { getTimestampToSeconds } from "../utils/time";
+import { getContent } from "../utils/map";
 
 const RestaurantItem = ({
   restaurant,
@@ -12,7 +13,21 @@ const RestaurantItem = ({
   const handleClick = () => {
     const time = getTimestampToSeconds(restaurant.timestamp);
     onClick(restaurant.video_id, time);
+    showMarkerInfoWindow();
     moveToMap();
+  };
+
+  const showMarkerInfoWindow = () => {
+    if (window?.naver) {
+      const marker = window.naver.markers.find(
+        (marker: { id: number; marker: any }) => marker.id === restaurant.id
+      );
+      const currentMarker = marker?.marker;
+      const infoWindow = new window.naver.maps.InfoWindow({
+        content: getContent({ title: restaurant.name }),
+      });
+      infoWindow.open(window.naver.newMap, currentMarker);
+    }
   };
 
   const moveToMap = () => {

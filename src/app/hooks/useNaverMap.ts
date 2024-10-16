@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { RestaurantExtend } from "../types/entities";
+import { getContent } from "../utils/map";
 
 interface LatLng {
   lat: string;
@@ -21,6 +22,7 @@ export const useNaverMap = (restaurants: RestaurantExtend[]) => {
 
       const newMap = new window.naver.maps.Map(mapElement.current, mapOptions);
       window.naver.newMap = newMap;
+      const markers: any[] = [];
       restaurants.forEach((restaurant, index) => {
         const marker = makeMarker(
           { lat: restaurant.latitude, lng: restaurant.longitude },
@@ -32,7 +34,10 @@ export const useNaverMap = (restaurants: RestaurantExtend[]) => {
           targetMap: newMap,
           index,
         });
+        markers.push({ id: restaurant.id, marker });
       });
+      window.naver.newMap = newMap;
+      window.naver.markers = markers;
     }
   };
 
@@ -67,10 +72,6 @@ export const useNaverMap = (restaurants: RestaurantExtend[]) => {
     if (index === 0) {
       infoWindow.open(targetMap, marker);
     }
-  };
-
-  const getContent = ({ title }: { title: string }) => {
-    return `<div style="padding:10px;font-size:12px;">${title}</div>`;
   };
 
   useEffect(() => {

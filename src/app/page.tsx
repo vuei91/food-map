@@ -15,7 +15,7 @@ const Home = async ({
   const restaurants = await resp.json();
   return (
     <div className="flex">
-      <div className="flex-[2]">
+      <div className="flex-[2] relative">
         <Search />
         {restaurants?.length > 0 && (
           <RestaurantList
